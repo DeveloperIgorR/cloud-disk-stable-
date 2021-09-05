@@ -30,19 +30,15 @@ const CreateFolder = (props) => {
     async function setFile(event) {
         props.setFetching(true)
         try {
-<<<<<<< HEAD
+
             const formData = new FormData()
             formData.append('file', event.target.file[0])
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
             const response = await FileService.uploadFile()
-=======
-            const response = await instance.post('files/upload',{
-                name:newFile,
-                
-            })
->>>>>>> 29d46ff (Fix85)
+  
+
             props.setActiveChild(false)
 
         } catch (e) {
