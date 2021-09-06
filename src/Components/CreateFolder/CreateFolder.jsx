@@ -27,18 +27,15 @@ const CreateFolder = (props) => {
 
     }
 
-    async function setFile(event) {
+    async function setFile(newFile) {
         props.setFetching(true)
         try {
-
             const formData = new FormData()
-            formData.append('file', event.target.file[0])
+            formData.append('file', newFile)
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
-            const response = await FileService.uploadFile()
-  
-
+            const response = await FileService.uploadFile(formData)
             props.setActiveChild(false)
 
         } catch (e) {
@@ -73,7 +70,7 @@ const CreateFolder = (props) => {
                 </div>
                 <div>
                     <img src={fileIcon} />
-                    <input multiple={true} type='file' value={newFile} onChange={event => setNewFile(...newFile, event.target.file)} placeholder='введите название файла' />
+                    <input multiple={true} type='file'  onChange={event => setNewFile(...event.target.files)} placeholder='введите название файла' />
                     <button onClick={setFile} >Загрузить</button>
 
                 </div>
