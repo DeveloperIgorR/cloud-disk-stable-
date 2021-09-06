@@ -25,8 +25,8 @@ export default class FileService {
         })
     }
 
-    static async uploadFile(){
-        return instance.post('files/upload',{})
+    static async uploadFile(formData){
+        return instance.post('files/upload',formData)
     }
 
 }

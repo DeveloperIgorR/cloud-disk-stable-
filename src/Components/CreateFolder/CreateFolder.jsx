@@ -9,7 +9,7 @@ import FileService from '../../API/FileService/FileService'
 const CreateFolder = (props) => {
 
     const [newFolder, setNewFolder] = useState([])
-    const [newFile, setNewFile] = useState([])
+    const [newFile, setNewFile] = useState(null)
     const [newAva, setNewAva] = useState([])
 
     async function setFolder() {
@@ -27,11 +27,14 @@ const CreateFolder = (props) => {
 
     }
 
-    async function setFile(newFile) {
+    async function setFile() {
         props.setFetching(true)
         try {
             const formData = new FormData()
-            formData.append('file', newFile)
+            if(newFile){
+                formData.append('file', newFile)
+            }
+            
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
@@ -70,7 +73,7 @@ const CreateFolder = (props) => {
                 </div>
                 <div>
                     <img src={fileIcon} />
-                    <input multiple={true} type='file'  onChange={event => setNewFile(...event.target.files)} placeholder='введите название файла' />
+                    <input multiple={true} type='file'  onChange={event => setNewFile(event.target.file)} placeholder='введите название файла' />
                     <button onClick={setFile} >Загрузить</button>
 
                 </div>
