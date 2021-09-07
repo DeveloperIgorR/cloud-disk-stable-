@@ -9,7 +9,7 @@ import FileService from '../../API/FileService/FileService'
 const CreateFolder = (props) => {
 
     const [newFolder, setNewFolder] = useState([])
-    const [newFile, setNewFile] = useState(null)
+    const [newFiles, setNewFiles] = useState(null)
     const [newAva, setNewAva] = useState([])
 
     async function setFolder() {
@@ -26,19 +26,24 @@ const CreateFolder = (props) => {
         }
 
     }
+    function uploadFile() {
+        for (let i = 0; i < newFiles.length; i++) {
+            const file = newFiles[i]
+            setFile(file)
+        }
+    }
 
-    async function setFile() {
+    async function setFile(file) {
         props.setFetching(true)
+
         try {
             const formData = new FormData()
-            if(newFile){
-                formData.append('file', newFile)
-            }
-            
+            formData.append('file', file) 
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
             const response = await FileService.uploadFile(formData)
+            props.addFormData(response.data)
             props.setActiveChild(false)
 
         } catch (e) {
@@ -73,8 +78,8 @@ const CreateFolder = (props) => {
                 </div>
                 <div>
                     <img src={fileIcon} />
-                    <input multiple={true} type='file'  onChange={event => setNewFile(event.target.file)} placeholder='введите название файла' />
-                    <button onClick={setFile} >Загрузить</button>
+                    <input multiple={true} type='file' onChange={event => setNewFiles(event.target.files)} placeholder='введите название файла' />
+                    <button onClick={uploadFile} >Загрузить</button>
 
                 </div>
                 <div>

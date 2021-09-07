@@ -27,7 +27,11 @@ const Disk = () => {
     const [previosDir, setPreviosDir] = useState([])        
 
     let addNewFile = (newFile) => {
-        setFiles([...files, newFile])
+        setFiles([...files, newFile]) 
+    }
+
+    let addFormData = (formData) => {
+        setFiles([...files,formData])
     }
     
     useEffect(() => {
@@ -126,6 +130,7 @@ const Disk = () => {
                                 parentDir={parentDir}
                                 setActiveChild={setActiveChild}
                                 addNewFile={addNewFile}
+                                addFormData={addFormData}
                                 fetching={fetching}
                                 setFetching={setFetching}
                             />
