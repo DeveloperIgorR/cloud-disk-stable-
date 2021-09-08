@@ -5,9 +5,11 @@ import avaIcon from '../../Asets/Images/carbon_user-avatar-filled.png'
 import { AuthContext } from '../../context'
 import { useContext } from 'react'
 
+
 const Navbar = (props) => {
     const{isAuth,setIsAuth} = useContext(AuthContext)
     const{searchFolder,setSearchFolder} = useContext(AuthContext)
+    
     function logOut(){
         localStorage.clear()
         setIsAuth(false)
@@ -31,7 +33,11 @@ const Navbar = (props) => {
                         {(isAuth)
                         ? <button onClick={logOut}>Выйти</button>
                         : <NavLink to={'/auth'}><button>Log in</button></NavLink>}
-                        <NavLink to={'/profile'}><img src={avaIcon} /></NavLink>
+                        <NavLink to={'/profile'}>
+                            {(props.ava)
+                            ? <img src={props.ava}/>
+                            : <img src={avaIcon}/>}
+                        </NavLink>
                     </div>
 
                 </div>

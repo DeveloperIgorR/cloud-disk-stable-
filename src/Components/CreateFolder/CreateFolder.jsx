@@ -10,7 +10,7 @@ const CreateFolder = (props) => {
 
     const [newFolder, setNewFolder] = useState([])
     const [newFiles, setNewFiles] = useState(null)
-    const [newAva, setNewAva] = useState([])
+    const [newAva, setNewAva] = useState(null)
 
     async function setFolder() {
         props.setFetching(true)
@@ -35,7 +35,6 @@ const CreateFolder = (props) => {
 
     async function setFile(file) {
         props.setFetching(true)
-
         try {
             const formData = new FormData()
             formData.append('file', file) 
@@ -54,17 +53,25 @@ const CreateFolder = (props) => {
 
     }
 
-
     async function setAva() {
         props.setFetching(true)
         try {
-            const response = await instance.post('files/avatar')
+            const formData = new FormData()
+            if(newAva){
+                formData.append('avatar', newAva)
+            }        
+            if (props.parentDir) {
+                formData.append('parent', props.parentDir)
+            }
+            const response = await FileService.uploadAva(formData)
+            props.addNewAva(response.data)
             props.setActiveChild(false)
-            props.setFetching(false)
+
         } catch (e) {
             console.log(e)
+        } finally {
+            props.setFetching(false)
         }
-
     }
 
     return (
@@ -84,7 +91,7 @@ const CreateFolder = (props) => {
                 </div>
                 <div>
                     <img src={avaIcon} />
-                    <input value={newAva} onChange={event => setNewAva(event.target.value)} />
+                    <input  type='file' onChange={event => setNewAva(event.target.files[0])} />
                     <button onClick={setAva} >Загрузить </button>
                 </div>
             </div>

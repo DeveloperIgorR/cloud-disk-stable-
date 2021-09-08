@@ -29,4 +29,8 @@ export default class FileService {
         return instance.post('files/upload',formData)
     }
 
+    static async uploadAva(formData){
+        return instance.post('files/avatar',formData)
+    }
+
 }
