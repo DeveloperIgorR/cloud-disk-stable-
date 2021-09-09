@@ -8,7 +8,7 @@ import { AuthContext } from './context';
 const App = () => {
   const [isAuth, setIsAuth] = useState(false)
   const [user,setUser] = useState(null)
-
+console.log(user)
   useEffect(() => {
      authorizing()
       },[])

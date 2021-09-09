@@ -2,15 +2,17 @@ import folderIcon from '../../Asets/Images/fxemoji_filefolder.png'
 import fileIcon from '../../Asets/Images/flat-color-icons_file.png'
 import avaIcon from '../../Asets/Images/carbon_user-avatar-filled.png'
 import c from './CreateFolder.module.css'
-import { useState } from 'react'
-import { instance } from '../../API/instance'
+import { useContext, useState } from 'react'
 import FileService from '../../API/FileService/FileService'
+import { AuthContext } from '../../context'
 
 const CreateFolder = (props) => {
 
     const [newFolder, setNewFolder] = useState([])
     const [newFiles, setNewFiles] = useState(null)
     const [newAva, setNewAva] = useState(null)
+    const {user,setUser} = useContext(AuthContext)
+    const {isAuth, setIsAuth} = useContext(AuthContext)
 
     async function setFolder() {
         props.setFetching(true)
@@ -64,7 +66,7 @@ const CreateFolder = (props) => {
                 formData.append('parent', props.parentDir)
             }
             const response = await FileService.uploadAva(formData)
-            props.addNewAva(response.data.avatar)
+            (isAuth) && setUser(`https://fathomless-plains-19083.herokuapp.com/static/${response.data.avatar}`)
             props.setActiveChild(false)
             console.log(response.data)
 
