@@ -35,7 +35,7 @@ const Navbar = (props) => {
                         : <NavLink to={'/auth'}><button>Log in</button></NavLink>}
                         <NavLink to={'/profile'}>
                             {(props.ava)
-                            ? <img src={props.ava}/>
+                            ? <img style={{width:'45px',height:'45px',borderRadius:'50px'}} src={`https://fathomless-plains-19083.herokuapp.com/static/${props.ava}`}/>
                             : <img src={avaIcon}/>}
                         </NavLink>
                     </div>

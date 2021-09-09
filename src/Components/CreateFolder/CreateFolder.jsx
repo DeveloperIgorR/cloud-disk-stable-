@@ -58,14 +58,15 @@ const CreateFolder = (props) => {
         try {
             const formData = new FormData()
             if(newAva){
-                formData.append('avatar', newAva)
+                formData.append('file', newAva)
             }        
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
             const response = await FileService.uploadAva(formData)
-            props.addNewAva(response.data)
+            props.addNewAva(response.data.avatar)
             props.setActiveChild(false)
+            console.log(response.data)
 
         } catch (e) {
             console.log(e)
