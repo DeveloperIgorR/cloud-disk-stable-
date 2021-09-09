@@ -7,6 +7,7 @@ import { AuthContext } from './context';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false)
+  const [user,setUser] = useState(null)
 
   useEffect(() => {
      authorizing()
@@ -24,7 +25,9 @@ const App = () => {
   return (
     <AuthContext.Provider value={{
       isAuth,
-      setIsAuth
+      setIsAuth,
+      user,
+      setUser
     }}>
       <BrowserRouter>
         <AppRouter />
