@@ -110,14 +110,21 @@ const Disk = () => {
         setDragFiles(false)
     }
 
-    async function dropHandler(event){
+    function dropHandler(event) {
         event.preventDefault()
         event.stopPropagation()
-        let files = [...event.dataTransfer.files]
+        let newFiles = [...event.dataTransfer.files]
+        for (let i = 0; i < newFiles.length; i++) {
+            const file = newFiles[i]
+            setFile(file)
+        }
+    }
+
+    async function setFile(file){
         setFetching(true)
         try {
             const formData = new FormData()
-            formData.append('file', files[0]) 
+            formData.append('file', file) 
             if (parentDir) {
                 formData.append('parent', parentDir)
             }
