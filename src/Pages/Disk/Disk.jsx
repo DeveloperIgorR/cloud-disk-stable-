@@ -15,7 +15,7 @@ import FileService from '../../API/FileService/FileService'
 
 const Disk = () => {
     const [favourites, setFavourites] = useState([])
-    const [files, setFiles] = useState([])   
+    const [files, setFiles] = useState([])
     const [selectedSort, setSelectedSort] = useState('')
     const [searchFolder, setSearchFolder] = useState('')
     const [type, setType] = useState('')
@@ -24,52 +24,53 @@ const Disk = () => {
     const [activeChild, setActiveChild] = useState(false)
     const [fetching, setFetching] = useState(false)
     const [parentDir, setParentDir] = useState(null)
-    const [previosDir, setPreviosDir] = useState([]) 
-    const [ava,setAva] = useState(null)       
+    const [previosDir, setPreviosDir] = useState([])
+    const [ava, setAva] = useState(null)
+    const [dragFiles, setDragFiles] = useState(true)
 
     let addNewFile = (newFile) => {
-        setFiles([...files, newFile]) 
+        setFiles([...files, newFile])
     }
 
     let addFormData = (formData) => {
-        setFiles([...files,formData])
+        setFiles([...files, formData])
     }
 
     let addNewAva = (avatar) => {
         setAva(avatar)
     }
-    
+
     useEffect(() => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-    }, [parentDir])    
+    }, [parentDir])
 
     async function getFiles() {
         setFetching(true)
         try {
             const response = await FileService.receiveFiles(parentDir)
-            setFiles(response.data) 
-            console.log(response.data)           
-            
+            setFiles(response.data)
+            console.log(response.data)
+
         } catch (e) {
             console.log(e)
-        } finally{
+        } finally {
             setFetching(false)
         }
-    }  
+    }
 
-    async function delFiles(event){
+    async function delFiles(event) {
         console.log(event._id)
         setFetching(true)
-        try{
+        try {
             const response = await FileService.deleteFiles(event._id)
-            let filtredFiles = files.filter(i => event._id != i._id )  
-            setFiles(filtredFiles)                 
-            
+            let filtredFiles = files.filter(i => event._id != i._id)
+            setFiles(filtredFiles)
+
         } catch (e) {
             console.log(e.response)
-        } finally{
+        } finally {
             setFetching(false)
         }
     }
@@ -81,18 +82,18 @@ const Disk = () => {
     }, [searchFolder, sortedArr])
 
     let sortByEvent = (event) => {
-        let field = event.target.value 
-        setSelectedSort(field)             
-        setFiles(sortedArr)        
+        let field = event.target.value
+        setSelectedSort(field)
+        setFiles(sortedArr)
     }
-    let sortBySize = (user) => {                
-        setSelectedSort(user)  
+    let sortBySize = (user) => {
+        setSelectedSort(user)
         setFiles(sortedArr)
         setSortedType('FROM_SMALL_TO_BIG')
-    }    
-    
-    function onHeartIconClick(currentFolder){
-        const newFaworites = [...favourites,currentFolder]
+    }
+
+    function onHeartIconClick(currentFolder) {
+        const newFaworites = [...favourites, currentFolder]
         setFavourites(newFaworites)
         localStorage.setItem('favourites', JSON.stringify(newFaworites))
     }
@@ -107,81 +108,86 @@ const Disk = () => {
             />
 
             <div className={d.favourite}>
-            <h2>Избранное</h2>
+                <h2>Избранное</h2>
                 {favourites.map((i) => {
                     return <div key={i._id} className={d.folder} >
                         <button><img src={arrowLogo} /></button>
                         <a>{i.name}</a>
                     </div>
-                })} 
-                <DiskSpace/>               
+                })}
+                <DiskSpace />
             </div>
+            {!dragFiles ?
+                <div className={d.openFolder}>
 
-            <div className={d.openFolder}>
+                    <div className={d.header}>
+                        {parentDir === null
+                            ? <button disabled><img src={backLogo} /></button>
+                            : <button onClick={() => setParentDir(previosDir.pop())}><img src={backLogo} /></button>
+                        }
+                        <h2>Files</h2>
+                        <button><img src={downloadLogo} /></button>
+                    </div>
 
-                <div className={d.header}>
-                    { parentDir === null
-                        ? <button  disabled><img src={backLogo} /></button>
-                        : <button  onClick={() => setParentDir(previosDir.pop())}><img src={backLogo} /></button>
+                    <div className={d.createButton}>
+                        <div className={d.topLineButton}>
+                            <button onClick={() => setActiveChild(true)}>Create new folder</button>
+                            <Modal active={activeChild} setActive={setActiveChild}>
+                                <CreateFolder
+                                    parentDir={parentDir}
+                                    setActiveChild={setActiveChild}
+                                    addNewFile={addNewFile}
+                                    addFormData={addFormData}
+                                    fetching={fetching}
+                                    setFetching={setFetching}
+                                    addNewAva={addNewAva}
+                                />
+                            </Modal>
+                        </div>
+
+                        <SortSelectors
+                            setType={setType}
+                            setSortedType={setSortedType}
+                            sortByEvent={sortByEvent}
+                            sortBySize={sortBySize}
+                            sortedtype={sortedtype} />
+                    </div>
+
+                    {
+                        (type === 'LIST')
+                            ? <div className={d.nameField}>
+                                <div>
+                                    <p>Name</p>
+                                </div>
+                                <div className={d.nameFieldRight}>
+                                    <p>Date</p>
+                                    <p>Size</p>
+                                </div>
+                            </div>
+                            : <div className={d.bottomLine}></div>
                     }
-                    <h2>Files</h2>
-                    <button><img src={downloadLogo} /></button>
-                </div>
 
-                <div className={d.createButton}>
-                    <div className={d.topLineButton}>
-                        <button onClick={() => setActiveChild(true)}>Create new folder</button>
-                        <Modal active={activeChild} setActive={setActiveChild}>
-                            <CreateFolder
-                                parentDir={parentDir}
-                                setActiveChild={setActiveChild}
-                                addNewFile={addNewFile}
-                                addFormData={addFormData}
-                                fetching={fetching}
-                                setFetching={setFetching}
-                                addNewAva={addNewAva}
-                            />
-                        </Modal>
-                    </div>
-
-                    <SortSelectors                        
-                        setType={setType}                        
-                        setSortedType={setSortedType}                        
-                        sortByEvent={sortByEvent} 
-                        sortBySize={sortBySize} 
-                        sortedtype={sortedtype} />
-                </div>
-
-                {
-                (type === 'LIST') 
-                ? <div className={d.nameField}>
-                    <div>
-                        <p>Name</p>
-                    </div>
-                    <div className={d.nameFieldRight}>
-                        <p>Date</p>
-                        <p>Size</p>
-                    </div>
-                 </div>
-                : <div className={d.bottomLine}></div>
-                } 
-                
-                {fetching
-                    ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}><Loader /></div>
-                    : <FileList
-                        files={sortedFolder}
-                        type={type}
-                        delFiles={delFiles}
-                        setParentDir={setParentDir}
-                        setPreviosDir={setPreviosDir}                         
-                        previosDir={previosDir} 
-                        parentDir={parentDir}
-                        onHeartIconClick={onHeartIconClick}                                        
+                    {fetching
+                        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}><Loader /></div>
+                        : <FileList
+                            files={sortedFolder}
+                            type={type}
+                            delFiles={delFiles}
+                            setParentDir={setParentDir}
+                            setPreviosDir={setPreviosDir}
+                            previosDir={previosDir}
+                            parentDir={parentDir}
+                            onHeartIconClick={onHeartIconClick}
                         />}
 
-            </div>
-
+                </div>
+                : <div className={d.dropArea}>
+                    Перетащите файлы сюда
+                </div>
+            }
         </div>
+
     )
+
 }
 export default Disk

@@ -7,6 +7,19 @@
      'b c';  
    height: 100vh;
 }
+.dropArea{
+   width: 900px;
+   height: 700px;
+   margin:20px;
+   border: dashed 2px #222A3F;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 40px;
+   background-color: #566885;
+   color: white;
+   
+}
 .favourite{
     grid-area: b;
     background-color: #222A3F;    
