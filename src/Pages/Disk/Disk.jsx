@@ -110,6 +110,27 @@ const Disk = () => {
         setDragFiles(false)
     }
 
+    async function dropHandler(event){
+        event.preventDefault()
+        event.stopPropagation()
+        let files = [...event.dataTransfer.files]
+        setFetching(true)
+        try {
+            const formData = new FormData()
+            formData.append('file', files[0]) 
+            if (parentDir) {
+                formData.append('parent', parentDir)
+            }
+            const response = await FileService.uploadFile(formData)
+            
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setFetching(false)
+        }
+        setDragFiles(false)
+    }
+
     return (
         <div className={d.disk}>
 
@@ -193,7 +214,7 @@ const Disk = () => {
                         />}
 
                 </div>
-                : <div className={d.dropArea} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler} >
+                : <div className={d.dropArea} onDrop={dropHandler} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler} >
                     Перетащите файлы сюда
                 </div>
             }
