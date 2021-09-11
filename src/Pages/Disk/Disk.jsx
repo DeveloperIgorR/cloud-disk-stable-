@@ -26,7 +26,7 @@ const Disk = () => {
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [ava, setAva] = useState(null)
-    const [dragFiles, setDragFiles] = useState(true)
+    const [dragFiles, setDragFiles] = useState(false)
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -98,6 +98,18 @@ const Disk = () => {
         localStorage.setItem('favourites', JSON.stringify(newFaworites))
     }
 
+    function dragEnterHandler (event){
+        event.preventDefault()
+        event.stopPropagation()
+        setDragFiles(true)
+    }
+
+    function dragLeaveHandler (event){
+        event.preventDefault()
+        event.stopPropagation()
+        setDragFiles(false)
+    }
+
     return (
         <div className={d.disk}>
 
@@ -118,7 +130,7 @@ const Disk = () => {
                 <DiskSpace />
             </div>
             {!dragFiles ?
-                <div className={d.openFolder}>
+                <div className={d.openFolder} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler} >
 
                     <div className={d.header}>
                         {parentDir === null
@@ -181,7 +193,7 @@ const Disk = () => {
                         />}
 
                 </div>
-                : <div className={d.dropArea}>
+                : <div className={d.dropArea} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler} >
                     Перетащите файлы сюда
                 </div>
             }
@@ -190,4 +202,4 @@ const Disk = () => {
     )
 
 }
-export default Disk
+export default Disk 
