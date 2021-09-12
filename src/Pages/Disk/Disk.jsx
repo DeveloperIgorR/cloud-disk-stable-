@@ -129,7 +129,7 @@ const Disk = () => {
                 formData.append('parent', parentDir)
             }
             const response = await FileService.uploadFile(formData)
-            
+            setFiles([...files,response.data])
         } catch (e) {
             console.log(e)
         } finally {
