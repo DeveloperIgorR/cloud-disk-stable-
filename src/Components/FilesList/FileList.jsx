@@ -24,7 +24,7 @@ const FileList = (props) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
-                            {(props.docType === 'dir'||'')
+                            {(props.docType.pop() === 'dir'||'')
                                 ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
                                 :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
                             }
@@ -47,7 +47,7 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} >                        
                         <div className={f.iconGroop} >                            
-                        {(props.docType === 'dir'||'')
+                        {(props.docType.pop() === 'dir'||'')
                                 ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigFolder} />
                                 :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigFile} />
                             }
@@ -63,7 +63,7 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id}>                        
                         <div className={f.bigIconGroop} >                            
-                        {(props.docType === 'dir'||'')
+                        {(props.docType.pop() === 'dir'||'')
                                 ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigerFolder} />
                                 :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigerFile} />
                             }
@@ -80,7 +80,7 @@ const FileList = (props) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
-                            {(props.docType === 'dir'||'')
+                            {(props.docType.pop() === 'dir'||'')
                                 ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
                                 :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
                             }
