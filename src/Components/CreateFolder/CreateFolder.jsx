@@ -16,11 +16,13 @@ const CreateFolder = (props) => {
 
     async function setFolder() {
         props.setFetching(true)
+        props.setDocType('dir')
         try {
             const response = await FileService.setFiles(newFolder, props.parentDir)
             props.setActiveChild(false)
             props.addNewFile(response.data)
             setNewFolder('')
+            
         } catch (e) {
             console.log(e)
         } finally {
@@ -37,6 +39,8 @@ const CreateFolder = (props) => {
 
     async function setFile(file) {
         props.setFetching(true)
+        props.setActiveChild(false)
+        props.setDocType('file')
         try {
             const formData = new FormData()
             formData.append('file', file) 
@@ -45,8 +49,7 @@ const CreateFolder = (props) => {
             }
             const response = await FileService.uploadFile(formData)
             props.addFormData(response.data)
-            props.setActiveChild(false)
-
+            
         } catch (e) {
             console.log(e)
         } finally {

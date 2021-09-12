@@ -20,12 +20,13 @@ const Disk = () => {
     const [searchFolder, setSearchFolder] = useState('')
     const [type, setType] = useState('')
     const [sortedtype, setSortedType] = useState('')
-    const [active, setActive] = useState(false)
     const [activeChild, setActiveChild] = useState(false)
     const [fetching, setFetching] = useState(false)
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [dragFiles, setDragFiles] = useState(false)
+    const [docType,setDocType] = useState('')
+    console.log(docType)
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -165,7 +166,7 @@ const Disk = () => {
 
                     <div className={d.createButton}>
                         <div className={d.topLineButton}>
-                            <button onClick={() => setActiveChild(true)}>Create new folder</button>
+                            <button onClick={() => setActiveChild(true)}>загрузить данные</button>
                             <Modal active={activeChild} setActive={setActiveChild}>
                                 <CreateFolder
                                     parentDir={parentDir}
@@ -174,6 +175,7 @@ const Disk = () => {
                                     addFormData={addFormData}
                                     fetching={fetching}
                                     setFetching={setFetching}
+                                    setDocType={setDocType}
                                 />
                             </Modal>
                         </div>
@@ -211,6 +213,7 @@ const Disk = () => {
                             previosDir={previosDir}
                             parentDir={parentDir}
                             onHeartIconClick={onHeartIconClick}
+                            docType={docType}
                         />}
 
                 </div>

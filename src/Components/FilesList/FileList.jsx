@@ -3,6 +3,9 @@ import bigFolder from '../../Asets/Images/fxemoji_filefolder (2).png'
 import bigerFolder from '../../Asets/Images/fxemoji_filefolder (3).png'
 import downloadIcon from '../../Asets/Images/ant-design_cloud-download-outlined (1).png'
 import smallFolder from '../../Asets/Images/fxemoji_filefolder.png'
+import smallFile from '../../Asets/Images/flat-color-icons_file.png'
+import bigFile from '../../Asets/Images/flat-color-icons_file (1).png'
+import bigerFile from '../../Asets/Images/flat-color-icons_file (3).png'
 import deleteIcon from '../../Asets/Images/Vector 9.png'
 import heartIcon from '../../Asets/Images/heart-svgrepo-com 1.svg'
 
@@ -20,8 +23,12 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
-                            <button><img src={downloadIcon} />
-                            </button><img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
+                            <button><img src={downloadIcon} /></button>
+                            {(props.docType === 'dir'||'')
+                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
+                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
+                            }
+                            
                             <p>{currentFolder.name}</p>
                         </div>
                         <div className={f.rightGroopIcons}>
@@ -40,7 +47,10 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} >                        
                         <div className={f.iconGroop} >                            
-                            <button ><img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigFolder} /></button>
+                        {(props.docType === 'dir'||'')
+                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigFolder} />
+                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigFile} />
+                            }
                             <p>{currentFolder.name}</p>
                         </div>
                     </div>
@@ -53,7 +63,10 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id}>                        
                         <div className={f.bigIconGroop} >                            
-                            <button ><img  onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigerFolder} /></button>
+                        {(props.docType === 'dir'||'')
+                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigerFolder} />
+                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigerFile} />
+                            }
                             <p>{currentFolder.name}</p>
                         </div>
                     </div>
@@ -66,8 +79,11 @@ const FileList = (props) => {
                 {props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
-                            <button><img src={downloadIcon} />
-                            </button><img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
+                            <button><img src={downloadIcon} /></button>
+                            {(props.docType === 'dir'||'')
+                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
+                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
+                            }
                             <p>{currentFolder.name}</p>
                         </div>
                         <div className={f.rightGroopIcons}>
