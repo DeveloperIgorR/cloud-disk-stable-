@@ -4,6 +4,7 @@ import diskIcon from '../../Asets/Images/Component 1.png'
 import avaIcon from '../../Asets/Images/carbon_user-avatar-filled.png'
 import { AuthContext } from '../../context'
 import { useContext } from 'react'
+import { SERVER_URL } from '../../API/instance'
 
 
 const Navbar = (props) => {
@@ -35,8 +36,8 @@ const Navbar = (props) => {
                         ? <button onClick={logOut}>Выйти</button>
                         : <NavLink to={'/auth'}><button>Log in</button></NavLink>}
                         <NavLink to={'/profile'}>
-                            {(props.ava)
-                            ? <img style={{width:'45px',height:'45px',borderRadius:'50px'}} src={user}/>
+                            {(user)
+                            ? <img style={{width:'45px',height:'45px',borderRadius:'50px'}} src={SERVER_URL + '/static/' + user.avatar}/>
                             : <img src={avaIcon}/>}
                         </NavLink>
                     </div>

@@ -66,7 +66,7 @@ const CreateFolder = (props) => {
                 formData.append('parent', props.parentDir)
             }
             const response = await FileService.uploadAva(formData)
-            (isAuth) && setUser(`https://fathomless-plains-19083.herokuapp.com/static/${response.data.avatar}`)
+            setUser(response.data)
             props.setActiveChild(false)
             console.log(response.data)
 

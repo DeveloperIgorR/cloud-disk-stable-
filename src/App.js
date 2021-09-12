@@ -8,7 +8,6 @@ import { AuthContext } from './context';
 const App = () => {
   const [isAuth, setIsAuth] = useState(false)
   const [user,setUser] = useState(null)
-console.log(user)
   useEffect(() => {
      authorizing()
       },[])
@@ -17,6 +16,7 @@ console.log(user)
     try{
     const response = await instance.get(`auth/auth`)    
       setIsAuth(true)
+      setUser(response.data.user)
     } catch (e) {
         console.log(e)
     }

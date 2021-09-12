@@ -25,7 +25,6 @@ const Disk = () => {
     const [fetching, setFetching] = useState(false)
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
-    const [ava, setAva] = useState(null)
     const [dragFiles, setDragFiles] = useState(false)
 
     let addNewFile = (newFile) => {
@@ -34,10 +33,6 @@ const Disk = () => {
 
     let addFormData = (formData) => {
         setFiles([...files, formData])
-    }
-
-    let addNewAva = (avatar) => {
-        setAva(avatar)
     }
 
     useEffect(() => {
@@ -144,7 +139,6 @@ const Disk = () => {
             <Navbar
                 searchFolder={searchFolder}
                 setSearchFolder={setSearchFolder}
-                ava={ava}
             />
 
             <div className={d.favourite}>
@@ -180,7 +174,6 @@ const Disk = () => {
                                     addFormData={addFormData}
                                     fetching={fetching}
                                     setFetching={setFetching}
-                                    addNewAva={addNewAva}
                                 />
                             </Modal>
                         </div>
