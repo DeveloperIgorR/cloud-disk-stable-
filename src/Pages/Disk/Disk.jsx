@@ -25,8 +25,6 @@ const Disk = () => {
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [dragFiles, setDragFiles] = useState(false)
-    const [docType,setDocType] = useState([])
-    console.log(docType)
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -175,14 +173,13 @@ const Disk = () => {
                                     addFormData={addFormData}
                                     fetching={fetching}
                                     setFetching={setFetching}
-                                    docType={docType}
-                                    setDocType={setDocType}
                                 />
                             </Modal>
                         </div>
 
                         <SortSelectors
                             setType={setType}
+                            type={type}
                             setSortedType={setSortedType}
                             sortByEvent={sortByEvent}
                             sortBySize={sortBySize}
