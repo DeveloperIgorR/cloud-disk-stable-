@@ -211,7 +211,6 @@ const Disk = () => {
                             previosDir={previosDir}
                             parentDir={parentDir}
                             onHeartIconClick={onHeartIconClick}
-                            docType={docType}
                         />}
 
                 </div>
