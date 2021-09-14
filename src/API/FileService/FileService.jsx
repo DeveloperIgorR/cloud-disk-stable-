@@ -2,10 +2,11 @@ import { instance } from "../instance"
 
 export default class FileService {
 
-    static async receiveFiles(parent){
+    static async receiveFiles(parent,sort){
         return instance.get('files', {
             params: {
-                parent
+                parent,
+                sort
             }
         })   
     }

@@ -9,7 +9,6 @@ import { SERVER_URL } from '../../API/instance'
 
 const Navbar = (props) => {
     const{isAuth,setIsAuth} = useContext(AuthContext)
-    const{searchFolder,setSearchFolder} = useContext(AuthContext)
     const{user,setUser} = useContext(AuthContext)
     
     function logOut(){
@@ -28,7 +27,7 @@ const Navbar = (props) => {
 
                     <div className={n.searchField}>
                         <input placeholder='Search in disk' 
-                        value={searchFolder} onChange={event => setSearchFolder(event.target.value)}/>
+                        value={props.searchFolder} onChange={event => props.setSearchFolder(event.target.value)}/>
                     </div>
 
                     <div className={n.profileField}>

@@ -38,12 +38,12 @@ const Disk = () => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-    }, [parentDir])
+    }, [parentDir,sortedtype])
 
     async function getFiles() {
         setFetching(true)
         try {
-            const response = await FileService.receiveFiles(parentDir)
+            const response = await FileService.receiveFiles(parentDir,sortedtype)
             setFiles(response.data)
             console.log(response.data)
 
