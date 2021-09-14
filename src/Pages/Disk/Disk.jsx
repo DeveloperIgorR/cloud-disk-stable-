@@ -11,6 +11,7 @@ import SortSelectors from '../../Components/SortSelectors/SortSelectors'
 import Loader from '../../Components/UI/Loader/Loader'
 import DiskSpace from '../../Components/UI/DiskSpace/DiskSpace'
 import FileService from '../../API/FileService/FileService'
+import Uploader from '../../Components/UI/Uploader/Uploader'
 
 
 const Disk = () => {
@@ -35,9 +36,10 @@ const Disk = () => {
 
     useEffect(() => {
         getFiles()
+        searchFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-    }, [parentDir,sortedtype])
+    }, [parentDir,sortedtype,searchFolder])
 
     async function getFiles() {
         setFetching(true)
@@ -46,6 +48,19 @@ const Disk = () => {
             setFiles(response.data)
             console.log(response.data)
 
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setFetching(false)
+        }
+    }
+
+    async function searchFiles() {
+        setFetching(true)
+        try {
+            const response = await FileService.findFiles(searchFolder)
+            setFiles(response.data)
+            
         } catch (e) {
             console.log(e)
         } finally {
@@ -218,6 +233,7 @@ const Disk = () => {
                     Перетащите файлы сюда
                 </div>
             }
+            <Uploader/>
         </div>
 
     )

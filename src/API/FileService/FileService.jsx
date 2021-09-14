@@ -11,6 +11,14 @@ export default class FileService {
         })   
     }
 
+    static async findFiles(search){
+        return instance.get('files/search', {
+            params: {
+                search
+            }
+        })   
+    }
+
     static async deleteFiles(id){
         return  instance.delete('files',{
             params: {
