@@ -12,8 +12,8 @@ const SortSelectors = (props) => {
     let user = '_id'//сделал id , потому что size везде 0 пока
     return (
         <div className={s.selections}>
-            <button onClick={() => props.sortBySize(user)}><SortLogo type={props.sortedtype} /></button>
-            <select onChange={event => props.sortByEvent(event)}>
+            <button ><SortLogo type={props.sortedtype} /></button>
+            <select onChange={event => props.setSortedType(event.target.value)}>
                 <option selected disabled value=''>Name</option>
                 {sortOptions.map((el) => {
                     return <option key={el.value} value={el.value}>{el.name}</option>

@@ -16,7 +16,6 @@ import FileService from '../../API/FileService/FileService'
 const Disk = () => {
     const [favourites, setFavourites] = useState([])
     const [files, setFiles] = useState([])
-    const [selectedSort, setSelectedSort] = useState('')
     const [searchFolder, setSearchFolder] = useState('')
     const [type, setType] = useState('')
     const [sortedtype, setSortedType] = useState('')
@@ -69,22 +68,22 @@ const Disk = () => {
         }
     }
 
-    const sortedArr = [...files].sort((a, b) => String(a[selectedSort]).localeCompare(b[selectedSort]))
+    // const sortedArr = [...files].sort((a, b) => String(a[selectedSort]).localeCompare(b[selectedSort]))
 
-    const sortedFolder = useMemo(() => {
-        return sortedArr.filter(currentFolder => currentFolder.name.toLowerCase().includes(searchFolder))
-    }, [searchFolder, sortedArr])
+    // const sortedFolder = useMemo(() => {
+    //     return sortedArr.filter(currentFolder => currentFolder.name.toLowerCase().includes(searchFolder))
+    // }, [searchFolder, sortedArr])
 
-    let sortByEvent = (event) => {
-        let field = event.target.value
-        setSelectedSort(field)
-        setFiles(sortedArr)
-    }
-    let sortBySize = (user) => {
-        setSelectedSort(user)
-        setFiles(sortedArr)
-        setSortedType('FROM_SMALL_TO_BIG')
-    }
+    // let sortByEvent = (event) => {
+    //     let field = event.target.value
+    //     setSelectedSort(field)
+    //     setFiles(sortedArr)
+    // }
+    // let sortBySize = (user) => {
+    //     setSelectedSort(user)
+    //     setFiles(sortedArr)
+    //     setSortedType('FROM_SMALL_TO_BIG')
+    // }
 
     function onHeartIconClick(currentFolder) {
         const newFaworites = [...favourites, currentFolder]
@@ -181,8 +180,8 @@ const Disk = () => {
                             setType={setType}
                             type={type}
                             setSortedType={setSortedType}
-                            sortByEvent={sortByEvent}
-                            sortBySize={sortBySize}
+                            // sortByEvent={sortByEvent}
+                            // sortBySize={sortBySize}
                             sortedtype={sortedtype} />
                     </div>
 
@@ -203,7 +202,8 @@ const Disk = () => {
                     {fetching
                         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}><Loader /></div>
                         : <FileList
-                            files={sortedFolder}
+                            // files={sortedFolder}
+                            files={files}
                             type={type}
                             delFiles={delFiles}
                             setParentDir={setParentDir}

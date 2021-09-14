@@ -12,8 +12,8 @@
     background-color: #222A3F;
     border:none;
 }
-.leftGroopIcons img :hover{
-    transform: scale(1.03);
+.leftGroopIcons img:hover{
+    transform: scale(1.2);
 }
 .leftGroopIcons{
     display: flex;
@@ -35,8 +35,8 @@
     align-items: center;
     flex-flow: column
 }
-.iconGroop img :hover{
-    transform: scale(1.03);
+.iconGroop img:hover{
+    transform: scale(1.1);
 }
 .iconGroop button{
     background-color: #222A3F;
@@ -47,6 +47,9 @@
     display:flex;
     align-items: center;
     flex-flow: column
+}
+.bigIconGroop img:hover{
+    transform: scale(1.1);
 }
 .bigIconGroop button{
     background-color: #222A3F;

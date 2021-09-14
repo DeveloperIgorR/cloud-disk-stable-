@@ -11,7 +11,7 @@ import heartIcon from '../../Asets/Images/heart-svgrepo-com 1.svg'
 
 const FileList = (props) => {
 
-   function onDoubleClick (event){
+   function clickHandler (event){
     props.setParentDir(event)
     props.setPreviosDir([...props.previosDir,props.parentDir])
    }   
@@ -25,8 +25,8 @@ const FileList = (props) => {
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
                             {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
-                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
+                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
+                                :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                             }
                             
                             <p>{currentFolder.name}</p>
@@ -48,8 +48,8 @@ const FileList = (props) => {
                     return <div key={currentFolder._id} >                        
                         <div className={f.iconGroop} >                            
                         {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigFolder} />
-                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigFile} />
+                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigFolder} />
+                                :<img onClick={() => clickHandler(currentFolder._id)} src={bigFile} />
                             }
                             <p>{currentFolder.name}</p>
                         </div>
@@ -64,8 +64,8 @@ const FileList = (props) => {
                     return <div key={currentFolder._id}>                        
                         <div className={f.bigIconGroop} >                            
                         {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={bigerFolder} />
-                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={bigerFile} />
+                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigerFolder} />
+                                :<img onClick={() => clickHandler(currentFolder._id)} src={bigerFile} />
                             }
                             <p>{currentFolder.name}</p>
                         </div>
@@ -81,8 +81,8 @@ const FileList = (props) => {
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
                             {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => onDoubleClick(currentFolder._id)} src={smallFolder} />
-                                :<img onClick={() => onDoubleClick(currentFolder._id)} src={smallFile} />
+                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
+                                :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                             }
                             <p>{currentFolder.name}</p>
                         </div>
