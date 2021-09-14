@@ -1,0 +1,16 @@
+.uploader{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    background-color: #566885;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
