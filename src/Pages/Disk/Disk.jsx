@@ -29,7 +29,7 @@ const Disk = () => {
     const [dragFiles, setDragFiles] = useState(false)
     const [downloadsFiles,setDownloadsFiles] = useState([])
     const {download,setDownload} = useContext(AuthContext)
-
+    console.log(downloadsFiles)
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -192,6 +192,7 @@ const Disk = () => {
                                     addFormData={addFormData}
                                     fetching={fetching}
                                     setFetching={setFetching}
+                                    downloadsFiles={downloadsFiles}
                                     setDownloadsFiles={setDownloadsFiles}
                                 />
                             </Modal>
