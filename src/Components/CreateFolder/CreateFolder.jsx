@@ -21,6 +21,7 @@ const CreateFolder = (props) => {
             const response = await FileService.setFiles(newFolder, props.parentDir)
             props.setActiveChild(false)
             props.addNewFile(response.data)
+            props.setDownloadsFiles(response.data)
             setNewFolder('')
             
         } catch (e) {
@@ -49,6 +50,7 @@ const CreateFolder = (props) => {
             }
             const response = await FileService.uploadFile(formData)
             props.addFormData(response.data)
+            props.setDownloadsFiles(response.data)
             
         } catch (e) {
             console.log(e)
@@ -71,6 +73,7 @@ const CreateFolder = (props) => {
             }
             const response = await FileService.uploadAva(formData)
             setUser(response.data)
+            props.setDownloadsFiles(response.data)
             props.setActiveChild(false)
             console.log(response.data)
 

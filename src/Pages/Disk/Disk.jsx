@@ -27,6 +27,7 @@ const Disk = () => {
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [dragFiles, setDragFiles] = useState(false)
+    const [downloadsFiles,setDownloadsFiles] = useState([])
     const {download,setDownload} = useContext(AuthContext)
 
 
@@ -191,6 +192,7 @@ const Disk = () => {
                                     addFormData={addFormData}
                                     fetching={fetching}
                                     setFetching={setFetching}
+                                    setDownloadsFiles={setDownloadsFiles}
                                 />
                             </Modal>
                         </div>
@@ -238,7 +240,9 @@ const Disk = () => {
                 </div>
             }
             {(download)
-                ?<Uploader/>
+                ?<Uploader
+                  downloadsFiles={downloadsFiles}
+                />
                 :''
             }
         </div>
