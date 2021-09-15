@@ -1,11 +1,11 @@
 import ue from './UploadElement.module.css'
 
 const UploadElement = (props) => {
-    console.log(props.files.name)
+    console.log(props.file.name)
     return(
         <div className={ue.uploader}>
             <div className={ue.header}>
-                <h4>{props.files.name}</h4>
+                <h4>{props.file.name}</h4>
                 <button>X</button>
             </div>
             <div>
