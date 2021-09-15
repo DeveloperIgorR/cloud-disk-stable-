@@ -12,9 +12,11 @@ const CreateFolder = (props) => {
     const [newFiles, setNewFiles] = useState(null)
     const [newAva, setNewAva] = useState(null)
     const {user,setUser} = useContext(AuthContext)
+    const {download,setDownload} = useContext(AuthContext)
 
     async function setFolder() {
         props.setFetching(true)
+        setDownload(true)
         try {
             const response = await FileService.setFiles(newFolder, props.parentDir)
             props.setActiveChild(false)
@@ -38,6 +40,7 @@ const CreateFolder = (props) => {
     async function setFile(file) {
         props.setFetching(true)
         props.setActiveChild(false)
+        setDownload(true)
         try {
             const formData = new FormData()
             formData.append('file', file) 
@@ -57,6 +60,7 @@ const CreateFolder = (props) => {
 
     async function setAva() {
         props.setFetching(true)
+        setDownload(true)
         try {
             const formData = new FormData()
             if(newAva){

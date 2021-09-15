@@ -12,6 +12,8 @@ import Loader from '../../Components/UI/Loader/Loader'
 import DiskSpace from '../../Components/UI/DiskSpace/DiskSpace'
 import FileService from '../../API/FileService/FileService'
 import Uploader from '../../Components/UI/Uploader/Uploader'
+import { useContext } from 'react/cjs/react.development'
+import { AuthContext } from '../../context'
 
 
 const Disk = () => {
@@ -25,6 +27,8 @@ const Disk = () => {
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [dragFiles, setDragFiles] = useState(false)
+    const {download,setDownload} = useContext(AuthContext)
+
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -233,7 +237,10 @@ const Disk = () => {
                     Перетащите файлы сюда
                 </div>
             }
-            <Uploader/>
+            {(download)
+                ?<Uploader/>
+                :''
+            }
         </div>
 
     )
