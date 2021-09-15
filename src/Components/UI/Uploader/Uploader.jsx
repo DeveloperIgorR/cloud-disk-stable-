@@ -13,14 +13,13 @@ const Uploader = (props) => {
                 <h4>загрузки</h4>
                 <button onClick={() => setDownload(false)}>X</button>
             </div>
-            <div>
+
                 {
                     props.downloadsFiles.map(uploadFile => 
                         <UploadElement key={uploadFile._id} file={uploadFile}/>
                     )
                 }
-            </div>
-
+            
         </div>
     )
 }
