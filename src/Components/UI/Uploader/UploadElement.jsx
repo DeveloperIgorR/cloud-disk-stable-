@@ -7,6 +7,10 @@ const UploadElement = (props) => {
                 <h4>{props.files.name}</h4>
                 <button>X</button>
             </div>
+            <div>
+                <div className={ue.uploadBar}></div>
+                <div className={ue.percent}>{props.file.progress}</div>
+            </div>
 
         </div>
     )

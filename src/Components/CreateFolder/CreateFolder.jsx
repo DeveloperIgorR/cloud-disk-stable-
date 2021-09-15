@@ -22,6 +22,7 @@ const CreateFolder = (props) => {
             props.setActiveChild(false)
             props.addNewFile(response.data)
             props.setDownloadsFiles(response.data)
+            console.log(response.data)
             setNewFolder('')
             
         } catch (e) {
