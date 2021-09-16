@@ -41,10 +41,13 @@ const Disk = () => {
 
     useEffect(() => {
         getFiles()
-        searchFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-    }, [parentDir,sortedtype,searchFolder])
+    }, [parentDir,sortedtype,])
+
+    useEffect(() => {
+        searchFiles()
+    },[searchFolder])
 
     async function getFiles() {
         setFetching(true)
