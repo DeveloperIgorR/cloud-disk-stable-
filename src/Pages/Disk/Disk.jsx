@@ -29,7 +29,11 @@ const Disk = () => {
     const [dragFiles, setDragFiles] = useState(false)
     const [downloadsFiles,setDownloadsFiles] = useState([])
     const {download,setDownload} = useContext(AuthContext)
-    console.log(downloadsFiles)
+    
+    function delDowloadsFile(event){
+        const filtredFiles = downloadsFiles.filter(file => file._id != event._id)
+        setDownloadsFiles(filtredFiles)
+    }
 
     let addNewFile = (newFile) => {
         setFiles([...files, newFile])
@@ -247,6 +251,7 @@ const Disk = () => {
                 ?<Uploader
                   downloadsFiles={downloadsFiles}
                   setDownload={setDownload}
+                  delDowloadsFile={delDowloadsFile}
                 />
                 :''
             }
