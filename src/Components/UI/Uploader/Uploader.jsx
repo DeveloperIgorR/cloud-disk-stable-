@@ -16,7 +16,7 @@ const Uploader = (props) => {
 
                 {
                     props.downloadsFiles.map(uploadFile => 
-                        <UploadElement key={uploadFile._id} file={uploadFile}/>
+                        <UploadElement key={uploadFile._id} file={uploadFile}  />
                     )
                 }
             

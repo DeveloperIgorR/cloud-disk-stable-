@@ -246,6 +246,7 @@ const Disk = () => {
             {(download)
                 ?<Uploader
                   downloadsFiles={downloadsFiles}
+                  setDownload={setDownload}
                 />
                 :''
             }
