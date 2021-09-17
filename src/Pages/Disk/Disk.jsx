@@ -27,10 +27,10 @@ const Disk = () => {
     const [parentDir, setParentDir] = useState(null)
     const [previosDir, setPreviosDir] = useState([])
     const [dragFiles, setDragFiles] = useState(false)
-    const [downloadsFiles,setDownloadsFiles] = useState([])
-    const {download,setDownload} = useContext(AuthContext)
-    
-    function delDowloadsFile(event){
+    const [downloadsFiles, setDownloadsFiles] = useState([])
+    const { download, setDownload } = useContext(AuthContext)
+
+    function delDowloadsFile(event) {
         const filtredFiles = downloadsFiles.filter(file => file._id != event._id)
         setDownloadsFiles(filtredFiles)
     }
@@ -47,16 +47,16 @@ const Disk = () => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-    }, [parentDir,sortedtype,])
+    }, [parentDir, sortedtype,])
 
     useEffect(() => {
         searchFiles()
-    },[searchFolder])
+    }, [searchFolder])
 
     async function getFiles() {
         setFetching(true)
         try {
-            const response = await FileService.receiveFiles(parentDir,sortedtype)
+            const response = await FileService.receiveFiles(parentDir, sortedtype)
             setFiles(response.data)
             console.log(response.data)
 
@@ -72,7 +72,7 @@ const Disk = () => {
         try {
             const response = await FileService.findFiles(searchFolder)
             setFiles(response.data)
-            
+
         } catch (e) {
             console.log(e)
         } finally {
@@ -118,13 +118,13 @@ const Disk = () => {
         localStorage.setItem('favourites', JSON.stringify(newFaworites))
     }
 
-    function dragEnterHandler (event){
+    function dragEnterHandler(event) {
         event.preventDefault()
         event.stopPropagation()
         setDragFiles(true)
     }
 
-    function dragLeaveHandler (event){
+    function dragLeaveHandler(event) {
         event.preventDefault()
         event.stopPropagation()
         setDragFiles(false)
@@ -140,16 +140,30 @@ const Disk = () => {
         }
     }
 
-    async function setFile(file){
+    async function setFile(file) {
         setFetching(true)
+        setDownload(true)
         try {
             const formData = new FormData()
-            formData.append('file', file) 
+            formData.append('file', file)
             if (parentDir) {
                 formData.append('parent', parentDir)
             }
-            const response = await FileService.uploadFile(formData)
-            setFiles([...files,response.data])
+
+            const uploadFile = { name: file.name, progress: 0 }
+            setDownloadsFiles([...downloadsFiles, uploadFile])
+
+            function onUploadProgress(progressEvent) {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    setDownloadsFiles([...downloadsFiles, uploadFile])
+                }
+            }
+
+            const response = await FileService.uploadFile(formData, onUploadProgress)
+            setFiles([...files, response.data])
         } catch (e) {
             console.log(e)
         } finally {
@@ -248,16 +262,16 @@ const Disk = () => {
                 </div>
             }
             {(download)
-                ?<Uploader
-                  downloadsFiles={downloadsFiles}
-                  setDownload={setDownload}
-                  delDowloadsFile={delDowloadsFile}
+                ? <Uploader
+                    downloadsFiles={downloadsFiles}
+                    setDownload={setDownload}
+                    delDowloadsFile={delDowloadsFile}
                 />
-                :''
+                : ''
             }
         </div>
 
     )
 
 }
-export default Disk 
+export default Disk
