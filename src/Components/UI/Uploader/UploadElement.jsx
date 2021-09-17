@@ -10,8 +10,8 @@ const UploadElement = (props) => {
                 <button onClick={() => props.delDowloadsFile(props.file)}>X</button>
             </div>
             <div className={ue.uploadFile}>
-                <div className={ue.uploadBar}></div>
-                <div className={ue.percent}>{props.file.progress}%</div>
+                <div className={ue.uploadBar} style={{width: props.file.progress + '%'}}></div>
+                <div className={ue.percent}>{props.file.progress}% </div>
             </div>
 
         </div>

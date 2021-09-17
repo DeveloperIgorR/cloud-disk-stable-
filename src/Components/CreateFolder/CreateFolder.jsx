@@ -11,8 +11,8 @@ const CreateFolder = (props) => {
     const [newFolder, setNewFolder] = useState([])
     const [newFiles, setNewFiles] = useState(null)
     const [newAva, setNewAva] = useState(null)
-    const {user,setUser} = useContext(AuthContext)
-    const {download,setDownload} = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext)
+    const { download, setDownload } = useContext(AuthContext)
 
     async function setFolder() {
         props.setFetching(true)
@@ -21,9 +21,9 @@ const CreateFolder = (props) => {
             const response = await FileService.setFiles(newFolder, props.parentDir)
             props.setActiveChild(false)
             props.addNewFile(response.data)
-            props.setDownloadsFiles([...props.downloadsFiles,response.data])
+            props.setDownloadsFiles([...props.downloadsFiles, response.data])
             setNewFolder('')
-            
+
         } catch (e) {
             console.log(e)
         } finally {
@@ -44,23 +44,26 @@ const CreateFolder = (props) => {
         setDownload(true)
         try {
             const formData = new FormData()
-            formData.append('file', file) 
+            formData.append('file', file)
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
-            const response = await FileService.uploadFile(formData, {
-                onUploadProgress: progressEvent => {
-                    const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                    console.log('total', totalLength)
-                    if (totalLength) {
-                        let progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                        console.log(progress)
-                    }
+
+            const uploadFile = { name: file.name, progress: 0 }
+            props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
+
+            function onUploadProgress(progressEvent) {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
                 }
-            })
+            }
+
+            const response = await FileService.uploadFile(formData, onUploadProgress)
             props.addFormData(response.data)
-            props.setDownloadsFiles([...props.downloadsFiles,response.data])
-            
+
         } catch (e) {
             console.log(e)
         } finally {
@@ -74,9 +77,9 @@ const CreateFolder = (props) => {
         setDownload(true)
         try {
             const formData = new FormData()
-            if(newAva){
+            if (newAva) {
                 formData.append('file', newAva)
-            }        
+            }
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
@@ -91,9 +94,9 @@ const CreateFolder = (props) => {
                 }
             })
             setUser(response.data)
-            props.setDownloadsFiles([...props.downloadsFiles,response.data])
+            props.setDownloadsFiles([...props.downloadsFiles, response.data])
             props.setActiveChild(false)
-            
+
         } catch (e) {
             console.log(e)
         } finally {
@@ -118,7 +121,7 @@ const CreateFolder = (props) => {
                 </div>
                 <div>
                     <img src={avaIcon} />
-                    <input  type='file' onChange={event => setNewAva(event.target.files[0])} />
+                    <input type='file' onChange={event => setNewAva(event.target.files[0])} />
                     <button onClick={setAva} >Загрузить аватар</button>
                 </div>
             </div>
