@@ -48,7 +48,16 @@ const CreateFolder = (props) => {
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
-            const response = await FileService.uploadFile(formData)
+            const response = await FileService.uploadFile(formData, {
+                onUploadProgress: progressEvent => {
+                    const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                    console.log('total', totalLength)
+                    if (totalLength) {
+                        let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                        console.log(progress)
+                    }
+                }
+            })
             props.addFormData(response.data)
             props.setDownloadsFiles([...props.downloadsFiles,response.data])
             
@@ -71,7 +80,16 @@ const CreateFolder = (props) => {
             if (props.parentDir) {
                 formData.append('parent', props.parentDir)
             }
-            const response = await FileService.uploadAva(formData)
+            const response = await FileService.uploadAva(formData, {
+                onUploadProgress: progressEvent => {
+                    const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                    console.log('total', totalLength)
+                    if (totalLength) {
+                        let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                        console.log(progress)
+                    }
+                }
+            })
             setUser(response.data)
             props.setDownloadsFiles([...props.downloadsFiles,response.data])
             props.setActiveChild(false)
@@ -101,7 +119,7 @@ const CreateFolder = (props) => {
                 <div>
                     <img src={avaIcon} />
                     <input  type='file' onChange={event => setNewAva(event.target.files[0])} />
-                    <button onClick={setAva} >Загрузить </button>
+                    <button onClick={setAva} >Загрузить аватар</button>
                 </div>
             </div>
             <div>

@@ -35,7 +35,16 @@ export default class FileService {
     }
 
     static async uploadFile(formData){
-        return instance.post('files/upload',formData)
+        return instance.post('files/upload',formData,{
+            onUploadProgress: progressEvent => {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    console.log(progress)
+                }
+            }
+        })
     }
 
     static async uploadAva(formData){

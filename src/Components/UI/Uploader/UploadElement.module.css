@@ -3,13 +3,20 @@
     justify-content: space-between;
     align-items: center;
 }
-.uploadBar{
+.uploadFile{
     height: 1rem;
     border-radius: 7px;
     background-color: white;
+    
 }
-.percent{
+.uploadBar{
     height: 1rem;
     border-radius: 7px;
-    color: teal;
+    background-color: teal;
+    
+}
+.percent{
+    color: white;
+    left: 50%;
+    position: absolute;
 }
