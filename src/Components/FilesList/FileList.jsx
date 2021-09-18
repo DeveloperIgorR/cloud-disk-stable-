@@ -20,7 +20,9 @@ const FileList = (props) => {
         case'LIST':
         return (
             <div>
-                {props.files.map((currentFolder) => {
+                { (props.files.length === 0)
+                    ? <h3 style={{color:'white',textAlign:'center'}}>Папка пуста</h3>
+                    :props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
@@ -29,7 +31,9 @@ const FileList = (props) => {
                                 :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                             }
                             
-                            <p>{currentFolder.name}</p>
+                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
+                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
+                           </div> 
                         </div>
                         <div className={f.rightGroopIcons}>
                             <p>{currentFolder.date}</p>
@@ -44,14 +48,18 @@ const FileList = (props) => {
         case'PLATE':
         return(
             <div className={f.openGroopFolders}>
-                {props.files.map((currentFolder) => {
+                {(props.files.length === 0)
+                    ? <h3 style={{color:'white',textAlign:'center',marginLeft:'400px'}}>Папка пуста</h3>
+                    :props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} >                        
                         <div className={f.iconGroop} >                            
                         {(currentFolder.type === 'dir')
                                 ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigFolder} />
                                 :<img onClick={() => clickHandler(currentFolder._id)} src={bigFile} />
                             }
-                            <p>{currentFolder.name}</p>
+                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
+                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
+                           </div> 
                         </div>
                     </div>
                 })}
@@ -60,14 +68,18 @@ const FileList = (props) => {
         case'BIG_PLATE':
         return(
             <div className={f.openGroopFolders}>
-                {props.files.map((currentFolder) => {
+                {(props.files.length === 0)
+                    ? <h3 style={{color:'white',textAlign:'center',marginLeft:'400px'}}>Папка пуста</h3>
+                    :props.files.map((currentFolder) => {
                     return <div key={currentFolder._id}>                        
                         <div className={f.bigIconGroop} >                            
                         {(currentFolder.type === 'dir')
                                 ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigerFolder} />
                                 :<img onClick={() => clickHandler(currentFolder._id)} src={bigerFile} />
                             }
-                            <p>{currentFolder.name}</p>
+                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
+                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
+                           </div> 
                         </div>
                     </div>
                 })}
@@ -76,7 +88,9 @@ const FileList = (props) => {
         default:
         return (
             <div>
-                {props.files.map((currentFolder) => {
+                {(props.files.length === 0)
+                    ? <h3 style={{color:'white',textAlign:'center'}}>Папка пуста</h3>
+                    :props.files.map((currentFolder) => {
                     return <div key={currentFolder._id} className={f.openFolders}>
                         <div className={f.leftGroopIcons}>
                             <button><img src={downloadIcon} /></button>
@@ -84,7 +98,9 @@ const FileList = (props) => {
                                 ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
                                 :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                             }
-                            <p>{currentFolder.name}</p>
+                           <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
+                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
+                           </div> 
                         </div>
                         <div className={f.rightGroopIcons}>
                             <p>{currentFolder.date}</p>
