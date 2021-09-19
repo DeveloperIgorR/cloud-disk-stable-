@@ -47,6 +47,9 @@ const Disk = () => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
+        const listType = JSON.parse(localStorage.getItem('type')) || []
+        setType(listType)
+        console.log(listType)
     }, [parentDir, sortedtype,])
 
     useEffect(() => {

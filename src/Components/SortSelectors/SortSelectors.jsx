@@ -10,6 +10,12 @@ const SortSelectors = (props) => {
         { value: 'date', name: 'сортировка по дате' }
     ]    
     let user = '_id'//сделал id , потому что size везде 0 пока
+
+    function onTypeClick(event){
+        props.setType(event)
+        localStorage.setItem('type',JSON.stringify(props.type))
+    }
+    
     return (
         <div className={s.selections}>
             <button ><SortLogo type={props.sortedtype} /></button>
@@ -19,9 +25,9 @@ const SortSelectors = (props) => {
                     return <option key={el.value} value={el.value}>{el.name}</option>
                 })}
             </select>
-            <button onClick={() => props.setType('BIG_PLATE')}><BigPlateLogo type={props.type} /></button>
-            <button onClick={() => props.setType('PLATE')}><PlateLogo type={props.type} /></button>
-            <button onClick={() => props.setType('LIST')}><ListLogo type={props.type} /></button>
+            <button onClick={() => onTypeClick('BIG_PLATE')}><BigPlateLogo type={props.type} /></button>
+            <button onClick={() => onTypeClick('PLATE')}><PlateLogo type={props.type} /></button>
+            <button onClick={() => onTypeClick('LIST')}><ListLogo type={props.type} /></button>
         </div>
     )
 }
