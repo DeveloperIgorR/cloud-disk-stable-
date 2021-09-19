@@ -9,8 +9,7 @@ const SortSelectors = (props) => {
         { value: 'name', name: 'сортировка по названию' },
         { value: 'date', name: 'сортировка по дате' }
     ]    
-    let user = '_id'//сделал id , потому что size везде 0 пока
-
+    
     function onTypeClick(event){
         props.setType(event)
         localStorage.setItem('type',JSON.stringify(props.type))

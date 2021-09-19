@@ -29,6 +29,7 @@ const Disk = () => {
     const [dragFiles, setDragFiles] = useState(false)
     const [downloadsFiles, setDownloadsFiles] = useState([])
     const { download, setDownload } = useContext(AuthContext)
+    const { alert, setAlert } = useContext(AuthContext)
 
     function delDowloadsFile(event) {
         const filtredFiles = downloadsFiles.filter(file => file._id != event._id)
@@ -47,7 +48,7 @@ const Disk = () => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-        const listType = JSON.parse(localStorage.getItem('type')) || []
+        const listType = localStorage.getItem('type') || []
         setType(listType)
         console.log(listType)
     }, [parentDir, sortedtype,])

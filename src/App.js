@@ -9,6 +9,7 @@ const App = () => {
   const [isAuth, setIsAuth] = useState(false)
   const [user,setUser] = useState(null)
   const [download,setDownload] = useState(false)
+  const [alert,setAlert] = useState(false)
 
   useEffect(() => {
      authorizing()
@@ -31,7 +32,9 @@ const App = () => {
       user,
       setUser,
       download,
-      setDownload
+      setDownload,
+      alert,
+      setAlert
     }}>
       <BrowserRouter>
         <AppRouter />
