@@ -9,109 +9,109 @@ import bigerFile from '../../Asets/Images/flat-color-icons_file (3).png'
 import deleteIcon from '../../Asets/Images/Vector 9.png'
 import heartIcon from '../../Asets/Images/heart-svgrepo-com 1.svg'
 
+const FileName = ({name}) => {
+    return (
+        <div style={{ width: '200px', overflow: 'hidden', whiteSpace: 'nowrap',textOverflow: 'ellipsis' }}>
+            {name}
+        </div>
+    )
+}
+
 const FileList = (props) => {
 
-   function clickHandler (event){
-    props.setParentDir(event)
-    props.setPreviosDir([...props.previosDir,props.parentDir])
-   }   
+    function clickHandler(event) {
+        props.setParentDir(event)
+        props.setPreviosDir([...props.previosDir, props.parentDir])
+    }
 
-    switch (props.type ) { 
-        case'LIST':
-        return (
-            <div>
-                { (props.files.length === 0)
-                    ? <h3 style={{color:'white',textAlign:'center'}}>Папка пуста</h3>
-                    :props.files.map((currentFolder) => {
-                    return <div key={currentFolder._id} className={f.openFolders}>
-                        <div className={f.leftGroopIcons}>
-                            <button><img src={downloadIcon} /></button>
-                            {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
-                                :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
-                            }
-                            
-                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
-                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
-                           </div> 
-                        </div>
-                        <div className={f.rightGroopIcons}>
-                            <p>{currentFolder.date}</p>
-                            <p>{currentFolder.size}</p>
-                            <button onClick={() => props.delFiles(currentFolder)}><img src={deleteIcon} /></button>
-                            <button onClick={() => props.onHeartIconClick(currentFolder)} ><img src={heartIcon} /></button>
-                        </div>
-                    </div>
-                })}
-            </div>
-        )
-        case'PLATE':
-        return(
-            <div className={f.openGroopFolders}>
-                {(props.files.length === 0)
-                    ? <h3 style={{color:'white',textAlign:'center',marginLeft:'400px'}}>Папка пуста</h3>
-                    :props.files.map((currentFolder) => {
-                    return <div key={currentFolder._id} >                        
-                        <div className={f.iconGroop} >                            
-                        {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigFolder} />
-                                :<img onClick={() => clickHandler(currentFolder._id)} src={bigFile} />
-                            }
-                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
-                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
-                           </div> 
-                        </div>
-                    </div>
-                })}
-            </div>
-        )
-        case'BIG_PLATE':
-        return(
-            <div className={f.openGroopFolders}>
-                {(props.files.length === 0)
-                    ? <h3 style={{color:'white',textAlign:'center',marginLeft:'400px'}}>Папка пуста</h3>
-                    :props.files.map((currentFolder) => {
-                    return <div key={currentFolder._id}>                        
-                        <div className={f.bigIconGroop} >                            
-                        {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigerFolder} />
-                                :<img onClick={() => clickHandler(currentFolder._id)} src={bigerFile} />
-                            }
-                            <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
-                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
-                           </div> 
-                        </div>
-                    </div>
-                })}
-            </div>
-        )
+    switch (props.type) {
+        case 'LIST':
+            return (
+                <div>
+                    {(props.files.length === 0)
+                        ? <h3 style={{ color: 'white', textAlign: 'center' }}>Папка пуста</h3>
+                        : props.files.map((currentFolder) => {
+                            return <div key={currentFolder._id} className={f.openFolders}>
+                                <div className={f.leftGroopIcons}>
+                                    <button><img src={downloadIcon} /></button>
+                                    {(currentFolder.type === 'dir')
+                                        ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
+                                        : <img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
+                                    }
+
+                                    <FileName name ={currentFolder.name}/>
+                                </div>
+                                <div className={f.rightGroopIcons}>
+                                    <p>{currentFolder.date}</p>
+                                    <p>{currentFolder.size}</p>
+                                    <button onClick={() => props.delFiles(currentFolder)}><img src={deleteIcon} /></button>
+                                    <button onClick={() => props.onHeartIconClick(currentFolder)} ><img src={heartIcon} /></button>
+                                </div>
+                            </div>
+                        })}
+                </div>
+            )
+        case 'PLATE':
+            return (
+                <div className={f.openGroopFolders}>
+                    {(props.files.length === 0)
+                        ? <h3 style={{ color: 'white', textAlign: 'center', marginLeft: '400px' }}>Папка пуста</h3>
+                        : props.files.map((currentFolder) => {
+                            return <div key={currentFolder._id} >
+                                <div className={f.iconGroop} >
+                                    {(currentFolder.type === 'dir')
+                                        ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigFolder} />
+                                        : <img onClick={() => clickHandler(currentFolder._id)} src={bigFile} />
+                                    }
+                                    <FileName name ={currentFolder.name}/>
+                                </div>
+                            </div>
+                        })}
+                </div>
+            )
+        case 'BIG_PLATE':
+            return (
+                <div className={f.openGroopFolders}>
+                    {(props.files.length === 0)
+                        ? <h3 style={{ color: 'white', textAlign: 'center', marginLeft: '400px' }}>Папка пуста</h3>
+                        : props.files.map((currentFolder) => {
+                            return <div key={currentFolder._id}>
+                                <div className={f.bigIconGroop} >
+                                    {(currentFolder.type === 'dir')
+                                        ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigerFolder} />
+                                        : <img onClick={() => clickHandler(currentFolder._id)} src={bigerFile} />
+                                    }
+                                    <FileName name ={currentFolder.name}/>
+                                </div>
+                            </div>
+                        })}
+                </div>
+            )
         default:
-        return (
-            <div>
-                {(props.files.length === 0)
-                    ? <h3 style={{color:'white',textAlign:'center'}}>Папка пуста</h3>
-                    :props.files.map((currentFolder) => {
-                    return <div key={currentFolder._id} className={f.openFolders}>
-                        <div className={f.leftGroopIcons}>
-                            <button><img src={downloadIcon} /></button>
-                            {(currentFolder.type === 'dir')
-                                ?<img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
-                                :<img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
-                            }
-                           <div style={{width:'250px', overflow:'hidden',whiteSpace:'nowrap'}}>
-                               <p style={{textOverflow:'ellipsis'}}>{currentFolder.name}</p>
-                           </div> 
-                        </div>
-                        <div className={f.rightGroopIcons}>
-                            <p>{currentFolder.date}</p>
-                            <p>{currentFolder.size}</p>
-                            <button onClick={() => props.delFiles(currentFolder)}><img src={deleteIcon} /></button>
-                            <button onClick={() => props.onHeartIconClick(currentFolder)} ><img src={heartIcon} /></button>
-                        </div>
-                    </div>
-                })}
-            </div>
-        )
+            return (
+                <div>
+                    {(props.files.length === 0)
+                        ? <h3 style={{ color: 'white', textAlign: 'center' }}>Папка пуста</h3>
+                        : props.files.map((currentFolder) => {
+                            return <div key={currentFolder._id} className={f.openFolders}>
+                                <div className={f.leftGroopIcons}>
+                                    <button><img src={downloadIcon} /></button>
+                                    {(currentFolder.type === 'dir')
+                                        ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
+                                        : <img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
+                                    }
+                                    <FileName name ={currentFolder.name}/>
+                                </div>
+                                <div className={f.rightGroopIcons}>
+                                    <p>{currentFolder.date}</p>
+                                    <p>{currentFolder.size}</p>
+                                    <button onClick={() => props.delFiles(currentFolder)}><img src={deleteIcon} /></button>
+                                    <button onClick={() => props.onHeartIconClick(currentFolder)} ><img src={heartIcon} /></button>
+                                </div>
+                            </div>
+                        })}
+                </div>
+            )
     }
 }
 

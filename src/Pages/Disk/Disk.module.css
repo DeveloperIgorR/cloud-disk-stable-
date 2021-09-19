@@ -6,7 +6,7 @@
      'a a'
      'b c';  
    height: 100vh;
-   
+   overflow-y:scroll;
 }
 .dropArea{
    width: 900px;

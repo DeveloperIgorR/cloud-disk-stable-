@@ -37,18 +37,18 @@ const Disk = () => {
     }
 
     let addNewFile = (newFile) => {
-        setFiles([...files, newFile])
+        setFiles([...files,newFile])
     }
 
     let addFormData = (formData) => {
-        setFiles([...files, formData])
+        setFiles( prev => [...prev,formData])
     }
 
     useEffect(() => {
         getFiles()
         const data = JSON.parse(localStorage.getItem('favourites')) || []
         setFavourites(data)
-        const listType = localStorage.getItem('type') || []
+        const listType = localStorage.getItem('type') || 'LIST'
         setType(listType)
         console.log(listType)
     }, [parentDir, sortedtype,])

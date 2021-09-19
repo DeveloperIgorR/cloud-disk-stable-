@@ -10,9 +10,9 @@ const SortSelectors = (props) => {
         { value: 'date', name: 'сортировка по дате' }
     ]    
     
-    function onTypeClick(event){
-        props.setType(event)
-        localStorage.setItem('type',JSON.stringify(props.type))
+    function onTypeClick(selectedType){
+        props.setType(selectedType)
+        localStorage.setItem('type',JSON.stringify(selectedType))
     }
     
     return (
