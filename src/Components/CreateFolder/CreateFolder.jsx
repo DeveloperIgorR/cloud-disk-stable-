@@ -14,6 +14,15 @@ const CreateFolder = (props) => {
     const { user, setUser } = useContext(AuthContext)
     const { download, setDownload } = useContext(AuthContext)
 
+    function onUploadProgress(progressEvent) {
+        const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+        console.log('total', totalLength)
+        if (totalLength) {
+            uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+            props.setDownloadsFiles(prev => [...prev, uploadFile])
+        }
+    }
+
     async function setFolder() {
         props.setFetching(true)
         setDownload(true)
@@ -50,17 +59,6 @@ const CreateFolder = (props) => {
             }
 
             const uploadFile = { name: file.name, progress: 0 }
-            props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
-
-            function onUploadProgress(progressEvent) {
-                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                console.log('total', totalLength)
-                if (totalLength) {
-                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                    props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
-                }
-            }
-
             const response = await FileService.uploadFile(formData, onUploadProgress)
             props.addFormData(response.data)
 
@@ -85,17 +83,6 @@ const CreateFolder = (props) => {
             }
 
             const uploadFile = { name: newAva.name, progress: 0 }
-            props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
-
-            function onUploadProgress(progressEvent) {
-                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                console.log('total', totalLength)
-                if (totalLength) {
-                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                    props.setDownloadsFiles([...props.downloadsFiles, uploadFile])
-                }
-            }
-
             const response = await FileService.uploadFile(formData, onUploadProgress)
             setUser(response.data)
             props.setActiveChild(false)

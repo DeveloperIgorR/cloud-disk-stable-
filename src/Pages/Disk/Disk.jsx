@@ -32,7 +32,7 @@ const Disk = () => {
     const { alert, setAlert } = useContext(AuthContext)
 
     function delDowloadsFile(event) {
-        const filtredFiles = downloadsFiles.filter(file => file._id != event._id)
+        const filtredFiles = downloadsFiles.filter(file => file.name != event.name)
         setDownloadsFiles(filtredFiles)
     }
 
