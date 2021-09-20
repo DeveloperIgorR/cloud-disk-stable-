@@ -83,7 +83,7 @@ const CreateFolder = (props) => {
             }
 
             const uploadFile = { name: newAva.name, progress: 0 }
-            const response = await FileService.uploadFile(formData, onUploadProgress)
+            const response = await FileService.uploadAva(formData,onUploadProgress)
             setUser(response.data)
             props.setActiveChild(false)
 

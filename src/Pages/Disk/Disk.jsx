@@ -155,19 +155,18 @@ const Disk = () => {
             }
 
             const uploadFile = { name: file.name, progress: 0 }
-            setDownloadsFiles([...downloadsFiles, uploadFile])
-
+            
             function onUploadProgress(progressEvent) {
                 const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
                 console.log('total', totalLength)
                 if (totalLength) {
                     uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                    setDownloadsFiles([...downloadsFiles, uploadFile])
+                    setDownloadsFiles(prev => [...prev, uploadFile])
                 }
             }
 
             const response = await FileService.uploadFile(formData, onUploadProgress)
-            setFiles([...files, response.data])
+            setFiles(prev => [...prev, response.data])
         } catch (e) {
             console.log(e)
         } finally {

@@ -40,8 +40,10 @@ export default class FileService {
         })
     }
 
-    static async uploadAva(formData){
-        return instance.post('files/avatar',formData)
+    static async uploadAva(formData,callback){
+        return instance.post('files/avatar',formData,{
+            onUploadProgress:callback
+        })
     }
 
 }
