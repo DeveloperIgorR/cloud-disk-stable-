@@ -57,7 +57,6 @@ const CreateFolder = (props) => {
             const uploadFile = { name: file.name, progress: 0 }
             function onUploadProgress(progressEvent) {
                 const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                console.log('total', totalLength)
                 if (totalLength) {
                     uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
                     props.setDownloadsFiles(prev => [...prev, uploadFile])
@@ -92,7 +91,6 @@ const CreateFolder = (props) => {
             const uploadFile = { name: newAva.name, progress: 0 }
             function onUploadProgress(progressEvent) {
                 const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-                console.log('total', totalLength)
                 if (totalLength) {
                     uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
                     props.setDownloadsFiles(prev => [...prev, uploadFile])
@@ -100,6 +98,7 @@ const CreateFolder = (props) => {
             }
             const response = await FileService.uploadAva(formData,onUploadProgress)
             setUser(response.data)
+            console.log(user)
             props.setActiveChild(false)
 
         } catch (e) {
