@@ -14,6 +14,7 @@ import FileService from '../../API/FileService/FileService'
 import Uploader from '../../Components/UI/Uploader/Uploader'
 import { useContext } from 'react/cjs/react.development'
 import { AuthContext } from '../../context'
+import Alert from '../../Components/UI/Alert/Alert'
 
 
 const Disk = () => {
@@ -168,7 +169,10 @@ const Disk = () => {
             const response = await FileService.uploadFile(formData, onUploadProgress)
             setFiles(prev => [...prev, response.data])
         } catch (e) {
-            console.log(e)
+            if(e) {setAlert(true)}
+            <Alert>
+               {e}
+            </Alert>
         } finally {
             setFetching(false)
         }

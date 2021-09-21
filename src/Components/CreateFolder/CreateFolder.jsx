@@ -5,6 +5,7 @@ import c from './CreateFolder.module.css'
 import { useContext, useState } from 'react'
 import FileService from '../../API/FileService/FileService'
 import { AuthContext } from '../../context'
+import Alert from '../UI/Alert/Alert'
 
 const CreateFolder = (props) => {
 
@@ -13,15 +14,7 @@ const CreateFolder = (props) => {
     const [newAva, setNewAva] = useState(null)
     const { user, setUser } = useContext(AuthContext)
     const { download, setDownload } = useContext(AuthContext)
-
-    function onUploadProgress(progressEvent) {
-        const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-        console.log('total', totalLength)
-        if (totalLength) {
-            uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
-            props.setDownloadsFiles(prev => [...prev, uploadFile])
-        }
-    }
+    const { alert, setAlert } = useContext(AuthContext)
 
     async function setFolder() {
         props.setFetching(true)
@@ -34,7 +27,10 @@ const CreateFolder = (props) => {
             setNewFolder('')
 
         } catch (e) {
-            console.log(e)
+            if(e) {setAlert(true)}
+            <Alert>
+               {e}
+            </Alert>
         } finally {
             props.setFetching(false)
         }
@@ -59,11 +55,22 @@ const CreateFolder = (props) => {
             }
 
             const uploadFile = { name: file.name, progress: 0 }
+            function onUploadProgress(progressEvent) {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    props.setDownloadsFiles(prev => [...prev, uploadFile])
+                }
+            }
             const response = await FileService.uploadFile(formData, onUploadProgress)
             props.addFormData(response.data)
 
         } catch (e) {
-            console.log(e)
+            if(e) {setAlert(true)}
+            <Alert>
+               {e}
+            </Alert>
         } finally {
             props.setFetching(false)
         }
@@ -83,12 +90,23 @@ const CreateFolder = (props) => {
             }
 
             const uploadFile = { name: newAva.name, progress: 0 }
+            function onUploadProgress(progressEvent) {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    props.setDownloadsFiles(prev => [...prev, uploadFile])
+                }
+            }
             const response = await FileService.uploadAva(formData,onUploadProgress)
             setUser(response.data)
             props.setActiveChild(false)
 
         } catch (e) {
-            console.log(e)
+            if(e) {setAlert(true)}
+            <Alert>
+               {e}
+            </Alert>
         } finally {
             props.setFetching(false)
         }
