@@ -34,6 +34,7 @@ const AppInput = ({ value, onChange, rules, ...props }) => {
                     (value) => value ===''? 'Не может быть пустым':false
                 ]}
             />
+            <div></div>
         </div>
 
     )
