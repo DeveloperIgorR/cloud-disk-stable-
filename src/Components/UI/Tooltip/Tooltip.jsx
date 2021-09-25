@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { AuthContext } from "../../../context"
 
-const Tooltip = () => {
-    const[visible,setVisible] = useState(false)
+const Tooltip = ({children}) => {
+    const {visible,setVisible} = useContext(AuthContext)
 
     return(
         <div>
-
+           {children}
         </div>
     )
 }

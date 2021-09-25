@@ -8,6 +8,7 @@ import bigFile from '../../Asets/Images/flat-color-icons_file (1).png'
 import bigerFile from '../../Asets/Images/flat-color-icons_file (3).png'
 import deleteIcon from '../../Asets/Images/Vector 9.png'
 import heartIcon from '../../Asets/Images/heart-svgrepo-com 1.svg'
+import Tooltip from '../UI/Tooltip/Tooltip'
 
 const FileName = ({name}) => {
     return (
@@ -38,8 +39,9 @@ const FileList = (props) => {
                                         ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
                                         : <img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                                     }
-
-                                    <FileName name ={currentFolder.name}/>
+                                    <Tooltip>
+                                        <FileName name ={currentFolder.name}/>
+                                    </Tooltip>                                    
                                 </div>
                                 <div className={f.rightGroopIcons}>
                                     <p>{currentFolder.date}</p>
@@ -63,7 +65,9 @@ const FileList = (props) => {
                                         ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigFolder} />
                                         : <img onClick={() => clickHandler(currentFolder._id)} src={bigFile} />
                                     }
-                                    <FileName name ={currentFolder.name}/>
+                                     <Tooltip>
+                                        <FileName name ={currentFolder.name}/>
+                                    </Tooltip>  
                                 </div>
                             </div>
                         })}
@@ -81,7 +85,9 @@ const FileList = (props) => {
                                         ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={bigerFolder} />
                                         : <img onClick={() => clickHandler(currentFolder._id)} src={bigerFile} />
                                     }
-                                    <FileName name ={currentFolder.name}/>
+                                     <Tooltip>
+                                        <FileName name ={currentFolder.name}/>
+                                    </Tooltip>  
                                 </div>
                             </div>
                         })}
@@ -100,7 +106,9 @@ const FileList = (props) => {
                                         ? <img onDoubleClick={() => clickHandler(currentFolder._id)} src={smallFolder} />
                                         : <img onClick={() => clickHandler(currentFolder._id)} src={smallFile} />
                                     }
-                                    <FileName name ={currentFolder.name}/>
+                                     <Tooltip>
+                                        <FileName name ={currentFolder.name}/>
+                                    </Tooltip>  
                                 </div>
                                 <div className={f.rightGroopIcons}>
                                     <p>{currentFolder.date}</p>

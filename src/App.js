@@ -10,6 +10,7 @@ const App = () => {
   const [user,setUser] = useState(null)
   const [download,setDownload] = useState(false)
   const [alert,setAlert] = useState(false)
+  const[visible,setVisible] = useState(false)
 
   useEffect(() => {
      authorizing()
@@ -34,7 +35,9 @@ const App = () => {
       download,
       setDownload,
       alert,
-      setAlert
+      setAlert,
+      visible,
+      setVisible
     }}>
       <BrowserRouter>
         <AppRouter />

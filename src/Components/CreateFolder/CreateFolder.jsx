@@ -9,7 +9,7 @@ import Alert from '../UI/Alert/Alert'
 
 const CreateFolder = (props) => {
 
-    const [newFolder, setNewFolder] = useState([])
+    const [newFolder, setNewFolder] = useState('')
     const [newFiles, setNewFiles] = useState(null)
     const [newAva, setNewAva] = useState(null)
     const { user, setUser } = useContext(AuthContext)
@@ -20,7 +20,8 @@ const CreateFolder = (props) => {
         props.setFetching(true)
         setDownload(true)
         try {
-            const uploadFile = { name: newFolder.name, progress: 0 }
+           
+            const uploadFile = {name:newFolder, progress: 0 }           
             function onUploadProgress(progressEvent) {
                 const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
                 if (totalLength) {
@@ -31,6 +32,7 @@ const CreateFolder = (props) => {
 
             const response = await FileService.setFiles(newFolder, props.parentDir,onUploadProgress)
             props.setActiveChild(false)
+            console.log(response.data)
             props.addNewFile(response.data)
             props.setDownloadsFiles([...props.downloadsFiles, response.data])
             setNewFolder('')

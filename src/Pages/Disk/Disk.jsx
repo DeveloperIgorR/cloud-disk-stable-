@@ -30,7 +30,7 @@ const Disk = () => {
     const [dragFiles, setDragFiles] = useState(false)
     const [downloadsFiles, setDownloadsFiles] = useState([])
     const { download, setDownload } = useContext(AuthContext)
-    const { alert, setAlert } = useContext(AuthContext)
+    const { alert, setAlert } = useContext(AuthContext)    
 
     function delDowloadsFile(event) {
         const filtredFiles = downloadsFiles.filter(file => file.name != event.name)
@@ -38,6 +38,7 @@ const Disk = () => {
     }
 
     let addNewFile = (newFile) => {
+        console.log(newFile)
         setFiles([...files,newFile])
     }
 
