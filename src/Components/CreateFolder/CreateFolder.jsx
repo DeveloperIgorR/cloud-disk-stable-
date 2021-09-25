@@ -20,7 +20,16 @@ const CreateFolder = (props) => {
         props.setFetching(true)
         setDownload(true)
         try {
-            const response = await FileService.setFiles(newFolder, props.parentDir)
+            const uploadFile = { name: newFolder.name, progress: 0 }
+            function onUploadProgress(progressEvent) {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                if (totalLength) {
+                    uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    props.setDownloadsFiles(prev => [...prev, uploadFile])
+                }
+            }
+
+            const response = await FileService.setFiles(newFolder, props.parentDir,onUploadProgress)
             props.setActiveChild(false)
             props.addNewFile(response.data)
             props.setDownloadsFiles([...props.downloadsFiles, response.data])

@@ -28,10 +28,14 @@ export default class FileService {
 
     }
 
-    static async setFiles(name, parent){
+    static async setFiles(name, parent,callback){
         return instance.post('files',{
             name, parent
-        })
+        },
+        {
+            onUploadProgress:callback
+        }
+        )
     }
 
     static async uploadFile(formData,callback){
