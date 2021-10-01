@@ -111,7 +111,7 @@ const FileList = (props) => {
                                     </Tooltip>  
                                 </div>
                                 <div className={f.rightGroopIcons}>
-                                    <p>{currentFolder.date}</p>
+                                    <p>{currentFolder.date.toString()}</p>
                                     <p>{currentFolder.size}</p>
                                     <button onClick={() => props.delFiles(currentFolder)}><img src={deleteIcon} /></button>
                                     <button onClick={() => props.onHeartIconClick(currentFolder)} ><img src={heartIcon} /></button>

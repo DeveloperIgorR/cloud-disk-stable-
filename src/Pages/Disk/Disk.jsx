@@ -15,6 +15,7 @@ import Uploader from '../../Components/UI/Uploader/Uploader'
 import { useContext } from 'react/cjs/react.development'
 import { AuthContext } from '../../context'
 import Alert from '../../Components/UI/Alert/Alert'
+import axios from 'axios'
 
 
 const Disk = () => {
@@ -179,7 +180,7 @@ const Disk = () => {
         }
         setDragFiles(false)
     }
-
+    
     return (
         <div className={d.disk}>
 
